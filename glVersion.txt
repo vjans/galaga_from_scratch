@@ -1,0 +1,1 @@
+OpenGL Version: 4.0.0 - Build 10.18.10.4252
