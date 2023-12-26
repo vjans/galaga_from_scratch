@@ -7,7 +7,7 @@
 #include <vector>
 #include "gameConstants.h"
 #include "game.h"
-
+#include "textUtils.h"
 /*
 
 @@@@@
@@ -129,6 +129,8 @@ int WINAPI WinMain (HINSTANCE hInstance,
 
             glPushMatrix ();
             game.run();
+            
+            write_text("abcdefghijklmno\npqrstuvwxyz\n0123456789\n()!?+-:/=.", {-1,0,0},0.01,{1,1,1});
             glPopMatrix ();
 
             SwapBuffers (hDC);

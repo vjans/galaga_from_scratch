@@ -351,7 +351,7 @@ object3d get_model_from_type(int type){
 	line_types.push_back(true);
 	switch(type){
 		case 0:
-			return load_obj("assets/objects/octahedron.obj");
+			return load_obj("assets/objects/enemy_double_oct.obj");
 		case 1:
 			return load_obj("assets/objects/item.obj");
 		case 2:
@@ -360,6 +360,8 @@ object3d get_model_from_type(int type){
 			return load_obj("assets/objects/triangle.obj");
 		case 4:
 			return load_obj("assets/objects/player_model.obj");
+		case 5:
+			return load_obj("assets/objects/enemy_double_oct.obj");
 	}
 }
 
