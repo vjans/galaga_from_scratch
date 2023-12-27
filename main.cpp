@@ -22,6 +22,9 @@ X Text Output
 
 Xmodel from type function 
 
+
+- Add better handling of enemyies (enemy type - set of model type instance type and more)
+
 Game state:
 
 -Add levels (load or generate??)

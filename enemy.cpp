@@ -1,9 +1,15 @@
 #include "enemy.h"
 #include <cstdlib>
 
+            
 Enemy::Enemy() {}
-Enemy::Enemy(BulletManager* bullet_manager, BGPlane* background,  Instance enemy_instance) 
-	: bullet_manager(bullet_manager), background(background), en_instance(enemy_instance) {
+Enemy::Enemy(BulletManager* bullet_manager, BGPlane* background,  v2 pos, InstanceType enemy_type) 
+	: bullet_manager(bullet_manager), background(background) {
+
+		en_instance = Instance(pos,0.05,get_model_from_type(static_cast<ModelType>(rand()%8)), DEFAULT_ENEMY_INSTANCE);
+            
+        Animation animation = get_animation_from_type(static_cast<AnimationType>(rand()%8));
+        en_instance.add_animation(animation);
 
     exists = true;
 }

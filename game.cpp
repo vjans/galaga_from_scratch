@@ -20,14 +20,8 @@ void Game::init_game() {
     for(int i = 0; i < ENEMY_BUFFER_MAX; i++) {
         if(!enemies[i].exists) {
 
-            v2 v;
-            v.x = ((float)i / 10.0f) - 0.5f;
-            v.y = 0.7f;
-            Instance inst = Instance(v,0.05,get_model_from_type(ENEMY_DOUBLE_OCT), DEFAULT_ENEMY_INSTANCE);
             
-            enemies[i] = Enemy(&bullet_manager,&background, inst);
-			enemies[i].en_instance = inst;
-            enemies[i].exists = true;
+            enemies[i] = Enemy(&bullet_manager,&background, {((float)i / 5.0f) - 0.9f, 0.7f}, DEFAULT_ENEMY_INSTANCE);
             encount--;
         }
         if(encount == 0) break;

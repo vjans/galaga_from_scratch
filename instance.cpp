@@ -1,8 +1,5 @@
 #include "Instance.h"
 #include "graphicsUtils.h"
-// Include necessary OpenGL headers
-#include <GL/gl.h>
-#include <math.h>
 
 // Implement the draw function
 void Instance::draw() {
@@ -53,21 +50,60 @@ void Instance::draw() {
 }
 
 void Instance::animate(float time){
-	v3 neutral = {0,0,0};
-	switch(instance_type){
-		case DEFAULT_BULLET_INSTANCE:
-				//model.rotate({0.00,0.05,0.00},neutral);
-			break;
-		case DEFAULT_PLAYER_INSTANCE:
-			break;
-		case DEFAULT_ENEMY_INSTANCE:
-				model.rotate({0.00,0.02,((float)sin(time*0.1+3.141592/2))/33.0f},neutral);
-			break;
-		default:
-				model.rotate({0.03,0.03,0.03},neutral);
-			break;
+	
+	if(animations.size() == 0 || current_animation_index == NO_ANIMATION)return;
+	
+	model.rotate(animations[current_animation_index].get_rv(time),animations[current_animation_index].get_cv(time));
+	
+}
+
+void Instance::add_animation(Animation animation){
+	animations.push_back(animation);
+	current_animation_index++;
+}
+/*enum AnimationType{
+	NONE,
+	WIGGLE,
+	WIGGLE_FAST,
+	ROTO_X,
+	ROTO_Y,
+	ROTO_Z,
+	ROTO_X_FAST,
+	ROTO_Y_FAST,
+	ROTO_Z_FAST,
+};
+
+*/
+Animation get_animation_from_type(AnimationType animation_type){
+
+	
+	v3 base_rotation = {0,0,0};
+	v3 base_center = {0,0,0};
+	
+	// roto_trig_params: params.x = phase, params.y = shift, params.z = amplitude
+	v3 x_roto_trig_params = {0,0,0};
+	v3 y_roto_trig_params = {0,0,0};
+	v3 z_roto_trig_params = {0,0,0};
+	
+	v3 x_center_trig_params = {0,0,0};
+	v3 y_center_trig_params = {0,0,0};
+	v3 z_center_trig_params = {0,0,0};
+	
+	
+	switch(animation_type){
+		case NONE: break;
+		case WIGGLE: base_rotation = {0,0.02,0}; z_roto_trig_params = {0.1,3.141592/2,1/33.0f};break;
+		case WIGGLE_FAST: base_rotation = {0,0.02,0}; z_roto_trig_params = {0.2,3.141592/2,1/33.0f}; break;
+		case ROTO_X: base_rotation = {0.02,0,0}; break;
+		case ROTO_Y: base_rotation = {0,0.02,0}; break;
+		case ROTO_Z: base_rotation = {0,0,0.02}; break;
+		case ROTO_X_FAST: base_rotation = {0.1,0,0}; break;
+		case ROTO_Y_FAST: base_rotation = {0,0.1,0}; break;
+		case ROTO_Z_FAST: base_rotation = {0,0,0.1}; break;
 	}
 	
+	return Animation(base_rotation,base_center,x_roto_trig_params,y_roto_trig_params,
+	z_roto_trig_params,x_center_trig_params,y_center_trig_params,z_center_trig_params);
 }
 
 bool Instance::check_collision(const Instance& other) const {

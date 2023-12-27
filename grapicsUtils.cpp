@@ -350,21 +350,28 @@ object3d get_model_from_type(ModelType model_type){
 	colors.push_back(col);
 	line_types.push_back(true);
 	switch(model_type){
-		case OCTAHEDRON:
-			return load_obj("assets/objects/octahedron.obj");
-		case ITEM:
-			return load_obj("assets/objects/item.obj");
-		case ICOSAHEDRON:
-			return load_obj("assets/objects/icosahedron.obj");
-		case TRIANGLE:
-			return load_obj("assets/objects/triangle.obj");
-		case PLAYER_MODEL1:
-			return load_obj("assets/objects/player_model1.obj");
 		case ENEMY_DOUBLE_OCT:
 			return load_obj("assets/objects/enemy_double_oct.obj");
+		case FLAT_OCTAHEDRON_STAR:
+			return load_obj("assets/objects/flat_octahedron_star.obj");
+		case ICOSAHEDRON:
+			return load_obj("assets/objects/icosahedron.obj");
+		case ITEM:
+			return load_obj("assets/objects/item.obj");
+		case OCTAHEDRON:
+			return load_obj("assets/objects/octahedron.obj");
+		case PLAYER_MODEL1:
+			return load_obj("assets/objects/player_model1.obj");
+		case TETRAHEDRON_MERGE:
+			return load_obj("assets/objects/tetrahedron_merge.obj");
+		case TETRAHEDRA_STACKED:
+			return load_obj("assets/objects/tetrahedra_stacked.obj");
+		case TETRAHEDRON:
+			return load_obj("assets/objects/tetrahedron.obj");
+		case TRIANGLE:
+			return load_obj("assets/objects/triangle.obj");
 	}
 }
-
 
 
 

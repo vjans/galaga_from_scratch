@@ -95,7 +95,7 @@ void BGPlane::update(float time){
 void BGPlane::init(){
 	for(int x = 0; x < resolution; x++){
 		for(int y = 0; y < resolution; y++){
-			colors[x][y] = {((float)x / ((float)resolution))*0.3, ((float)y / ((float)resolution))*0.3, 0.3};
+			colors[x][y] = {((float)x / ((float)resolution))*0.3f, ((float)y / ((float)resolution))*0.3f, 0.3f};
 		}
 	}
 }
