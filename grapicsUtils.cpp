@@ -338,7 +338,7 @@ object3d load_obj(const std::string& filename) {
     return model;
 }
 
-object3d get_model_from_type(int type){
+object3d get_model_from_type(ModelType model_type){
 	v3 col;
 	col.x = 1;
 	col.y = 1;
@@ -349,21 +349,22 @@ object3d get_model_from_type(int type){
 
 	colors.push_back(col);
 	line_types.push_back(true);
-	switch(type){
-		case 0:
-			return load_obj("assets/objects/enemy_double_oct.obj");
-		case 1:
+	switch(model_type){
+		case OCTAHEDRON:
+			return load_obj("assets/objects/octahedron.obj");
+		case ITEM:
 			return load_obj("assets/objects/item.obj");
-		case 2:
+		case ICOSAHEDRON:
 			return load_obj("assets/objects/icosahedron.obj");
-		case 3:
+		case TRIANGLE:
 			return load_obj("assets/objects/triangle.obj");
-		case 4:
-			return load_obj("assets/objects/player_model.obj");
-		case 5:
+		case PLAYER_MODEL1:
+			return load_obj("assets/objects/player_model1.obj");
+		case ENEMY_DOUBLE_OCT:
 			return load_obj("assets/objects/enemy_double_oct.obj");
 	}
 }
+
 
 
 

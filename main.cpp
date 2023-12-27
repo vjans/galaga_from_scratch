@@ -18,10 +18,21 @@ X sizes
 X appearance from models (appearance to instance)
 X bullets should dissappear (exists =false)  after leaving the screen
 X Collision
+X Text Output
 
--Game state
--GUI/Menus
--Text Output
+Xmodel from type function 
+
+Game state:
+
+-Add levels (load or generate??)
+-Add shop between levels -> PLAYING_SHOP
+-Add drops
+-Add health -> 0 -> GAME_OVER
+
+
+GUI/Menus:
+-keypress true false problem
+
 
 
 Behavior:
@@ -29,7 +40,6 @@ Behavior:
 - State changes, shooting (weapon, freq), movement (seek player, avoid bullets) , animation
 
 
--model from type function 
 -level loading
 -enemy loading
 -bullet loading
@@ -130,7 +140,6 @@ int WINAPI WinMain (HINSTANCE hInstance,
             glPushMatrix ();
             game.run();
             
-            write_text("abcdefghijklmno\npqrstuvwxyz\n0123456789\n()!?+-:/=.", {-1,0,0},0.01,{1,1,1});
             glPopMatrix ();
 
             SwapBuffers (hDC);

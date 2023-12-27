@@ -61,7 +61,7 @@ void Instance::animate(float time){
 		case DEFAULT_PLAYER_INSTANCE:
 			break;
 		case DEFAULT_ENEMY_INSTANCE:
-				model.rotate({0.00,0.02,(sin(time*0.1+3.141592/2))/33.0f},neutral);
+				model.rotate({0.00,0.02,((float)sin(time*0.1+3.141592/2))/33.0f},neutral);
 			break;
 		default:
 				model.rotate({0.03,0.03,0.03},neutral);

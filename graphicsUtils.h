@@ -51,6 +51,6 @@ public:
 };
 
 object3d load_obj(const std::string& filename);
-object3d get_model_from_type(int type);
+object3d get_model_from_type(ModelType model_type);
 
 #endif // GRAPHICS_UTILS_H

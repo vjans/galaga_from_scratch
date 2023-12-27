@@ -12,9 +12,11 @@
 #define SCREEN_SIZE 768
 
 enum GameState{
-    MENU,
-    PLAYING,
+    MAIN_MENU,
+    PLAYING, // while inside of a level
+    PLAYING_SHOP, // shopping interface between levels
     PAUSED,
+    GAME_OVER
 };
 
 // Instance type for custom drawing and animations
@@ -29,6 +31,15 @@ enum BulletType{
 	DOUBLE_SHOT,
 	SPREAD_SHOT,
 	HEAT_SEEKING_SHOT
+};
+
+enum ModelType{
+	ENEMY_DOUBLE_OCT,
+	ICOSAHEDRON,
+	OCTAHEDRON,
+	ITEM,
+	PLAYER_MODEL1,
+	TRIANGLE
 };
 
 #endif
