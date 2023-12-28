@@ -1,6 +1,5 @@
 #include "Game.h"
 #include <cstdlib> 
-
 Game::Game() {
     //init_game();
 }
@@ -15,25 +14,8 @@ void Game::init_game() {
     Instance player_instance = Instance({0,-0.8},0.1, get_model_from_type(PLAYER_MODEL1), DEFAULT_PLAYER_DRAW);
     player = Player(&bullet_manager,&background,player_instance);
 
-    // Initialize Enemies
-    int encount = 10;
-    for(int i = 0; i < ENEMY_BUFFER_MAX; i++) {
-        if(!enemies[i].exists) {
-			
-			EnemyInfo en_info;
-			en_info.ai_type=PASSIVE;
-			en_info.idle_animation = WIGGLE;
-			en_info.attack_animation = ROTO_Y_FAST;
-			en_info.movement_animation = NONE;
-			en_info.instance_model = TETRAHEDRA_STACKED;
-			en_info.bullet_type = SINGLE_SHOT;
-			en_info.draw_type = DEFAULT_ENEMY_DRAW;
-            
-            enemies[i] = Enemy(&bullet_manager,&background, {((float)i / 5.0f) - 0.9f, 0.7f}, en_info);
-            encount--;
-        }
-        if(encount == 0) break;
-    }
+
+
     
     // init main menu
     
@@ -44,6 +26,48 @@ void Game::init_game() {
 
 void Game::start_game() {
     current_state = PLAYING;
+    
+	load_enemies_for_current_level();
+	
+}
+
+
+void Game::load_enemies_for_current_level(){
+	std::string path = "assets/levels/" + std::to_string(current_level%max_level) + ".txt"; 
+	std::ifstream file(path);
+	std::string line;
+	float orig_x, orig_y,spawn_x,spawn_y;
+	int enemy_type;
+	
+	std::vector<Enemy> enemy_data;
+	while(std::getline(file,line)){
+		std::istringstream iss(line);
+		char comma; // to skip the commas
+		
+		
+	
+        // Extract values separated by commas
+        if (iss >> orig_x >> comma >> orig_y >> comma >> spawn_x >> comma >> spawn_y >> comma >> enemy_type) {
+            Enemy e(&bullet_manager, &background, {orig_x,orig_y}, static_cast<EnemyType>(enemy_type));
+ 	        e.en_instance.pos = {spawn_x, spawn_y};
+            enemy_data.push_back(e);
+        }
+	}
+	
+	int enemies_loaded = 0;
+	for(int i = 0; i < ENEMY_BUFFER_MAX; i++){
+		
+		if(enemies_loaded >= enemy_data.size()){
+			break; // all loaded
+		}
+		
+		if(!enemies[i].exists){
+			enemies[i].exists;
+			Enemy e(&bullet_manager, &background, {0,0}, static_cast<EnemyType>(0));
+			enemies[i] = enemy_data[enemies_loaded];
+			enemies_loaded++;
+		}
+	}	
 }
 
 void Game::exit_game() {
@@ -73,10 +97,20 @@ void Game::run() {
 		    handle_entities();
 		    draw_entities();
 			increment_time();
+			
+			if(no_enemies_remain){
+				current_state = PLAYING_SHOP;
+			}
 		break;
 		case PLAYING_SHOP: 
 			handle_shop_menu();
 		    draw_entities();
+			
+			if(true){
+				current_level++;
+				load_enemies_for_current_level();
+				current_state = PLAYING;
+			}
 			
 		break;
 		case PAUSED: 
@@ -105,8 +139,10 @@ void Game::handle_player() {
 }
 
 void Game::handle_enemies() {
+	no_enemies_remain = true;
     for(int i = 0; i < ENEMY_BUFFER_MAX; i++) {
         if(enemies[i].exists) {
+        	no_enemies_remain = false;
             enemies[i].check_collision();
             enemies[i].update_state_machine();
             enemies[i].update_player_pos(player.pl_instance.pos);

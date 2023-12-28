@@ -1,7 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <fstream>
+#include <sstream>
 #include <vector>
+#include <string>
 #include "bgPlane.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -25,6 +28,9 @@ public:
     BulletManager bullet_manager;
     GameState current_state = MAIN_MENU;
     
+    int current_level = 1;
+    int max_level = 10;
+    bool no_enemies_remain = true;
 	  
 	std::vector<MenuItem> main_menu_items;
 	int selected_item_index = 0;
@@ -33,6 +39,7 @@ public:
 	bool keys_pressed[5] = {false}; // Left, right, up, down, space
 	
     void init_game();
+    void load_enemies_for_current_level();
     
 	void handle_player();
     void handle_enemies();

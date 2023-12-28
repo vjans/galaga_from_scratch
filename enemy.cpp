@@ -17,17 +17,23 @@ class EnemyInfo{
 
 
 Enemy::Enemy() {}
-Enemy::Enemy(BulletManager* bullet_manager, BGPlane* background,  v2 pos, EnemyInfo en_info) 
+Enemy::Enemy(BulletManager* bullet_manager, BGPlane* background,  v2 pos, EnemyType en_type) 
 	: bullet_manager(bullet_manager), background(background), origin(pos) {
+		
+		EnemyInfo en_info = get_enemy_info_from_type(en_type);
 		
 		target = origin;
 		
-		en_instance = Instance({0,1},0.05,get_model_from_type(en_info.instance_model), en_info.draw_type);
         bullet_type = en_info.bullet_type;
+        size = en_info.size;
+        speed = en_info.speed;
+        health = en_info.health;
+        
+        
+		en_instance = Instance({0,1},size,get_model_from_type(en_info.instance_model), en_info.draw_type);
         en_instance.add_animation(get_animation_from_type(en_info.idle_animation));
         en_instance.add_animation(get_animation_from_type(en_info.movement_animation));
         en_instance.add_animation(get_animation_from_type(en_info.attack_animation));
-        
         set_animation_state(MOVING);
     exists = true;
 }
@@ -58,9 +64,13 @@ void Enemy::check_collision(){
 			bool collides = en_instance.check_collision(bullet_manager->bullets[i].instance);
 			if(collides){
 				
-				// some logic like damage and piercing can be added here
-				exists = false;
+				health--;
 				bullet_manager->bullets[i].exists = false;
+				// some logic like damage and piercing can be added here
+				if(health == 0){
+					exists = false;
+						
+				}
 			}
 		}
 	}
@@ -196,4 +206,62 @@ void Enemy::wander(){
 
 void Enemy::update_player_pos(v2 pos){
 	player_pos = pos;
+}
+
+/*
+
+			EnemyInfo en_info;
+			en_info.ai_type=PASSIVE;
+			en_info.idle_animation = WIGGLE; 
+			en_info.attack_animation = ROTO_Y_FAST; 
+			en_info.movement_animation = NONE;
+			en_info.instance_model = TETRAHEDRA_STACKED; 
+			en_info.bullet_type = SINGLE_SHOT;
+			en_info.draw_type = DEFAULT_ENEMY_DRAW;
+            
+*/
+EnemyInfo get_enemy_info_from_type(EnemyType enemy_type){
+	EnemyInfo en_info;
+	switch(enemy_type){
+		case DEFAULT: 
+			en_info.ai_type=PASSIVE;
+			en_info.idle_animation = WIGGLE; 
+			en_info.attack_animation = ROTO_Y_FAST; 
+			en_info.movement_animation = NONE;
+			en_info.instance_model = TETRAHEDRA_STACKED; 
+			en_info.bullet_type = SINGLE_SHOT;
+			en_info.draw_type = DEFAULT_ENEMY_DRAW;
+			en_info.size = 0.025;
+			en_info.speed = 0.01;
+			en_info.health = 5;
+		break;
+		
+		case BIG_GUY: 
+			en_info.ai_type=PASSIVE;
+			en_info.idle_animation = WIGGLE; 
+			en_info.attack_animation = ROTO_Y_FAST; 
+			en_info.movement_animation = NONE;
+			en_info.instance_model = TETRAHEDRA_STACKED; 
+			en_info.bullet_type = SINGLE_SHOT;
+			en_info.draw_type = DEFAULT_ENEMY_DRAW;
+			en_info.size = 0.1;
+			en_info.speed = 0.005;
+			en_info.health = 20;
+		break;
+		
+		case SPEEDY_BOI: 
+			en_info.ai_type=PASSIVE;
+			en_info.idle_animation = WIGGLE; 
+			en_info.attack_animation = ROTO_Y_FAST; 
+			en_info.movement_animation = NONE;
+			en_info.instance_model = TETRAHEDRA_STACKED; 
+			en_info.bullet_type = SINGLE_SHOT;
+			en_info.draw_type = DEFAULT_ENEMY_DRAW;
+			en_info.size = 0.0125;
+			en_info.speed = 0.1;
+			en_info.health = 1;
+		break;
+		
+	}
+	return en_info;
 }

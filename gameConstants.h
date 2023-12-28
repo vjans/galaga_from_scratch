@@ -83,4 +83,9 @@ enum AIType{
 	PASSIVE_AGGRO
 };
 
+enum EnemyType{
+	DEFAULT,
+	BIG_GUY,
+	SPEEDY_BOI
+};
 #endif

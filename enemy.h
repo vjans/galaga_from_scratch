@@ -16,6 +16,9 @@ public:
 	ModelType instance_model;
 	DrawType draw_type;
 	AIType ai_type;
+	float health;
+	float speed;
+	float size;
 };
 
 class Enemy{
@@ -39,7 +42,7 @@ public:
 	Enemy();
 	
 	//Enemy(BulletManager* bulletManager, BGPlane* background, Instance enemy_instance, float size = 1, float health = 1, WeaponType weapon_type = SINGLE_SHOT);
-	Enemy(BulletManager* bullet_manager, BGPlane* background,  v2 pos, EnemyInfo en_info);
+	Enemy(BulletManager* bullet_manager, BGPlane* background,  v2 pos, EnemyType en_type);
 	void draw();
 	void shoot();
 	void animate(float time);
@@ -55,4 +58,6 @@ public:
 	
 	void update_player_pos(v2 pos);
 };
+
+EnemyInfo get_enemy_info_from_type(EnemyType enemy_type);
 #endif
