@@ -19,11 +19,15 @@ X appearance from models (appearance to instance)
 X bullets should dissappear (exists =false)  after leaving the screen
 X Collision
 X Text Output
+X model from type function 
+X Add better handling of enemyies (enemy type - set of model type instance type and more)
 
-Xmodel from type function 
 
+Behavior:
+X State machine
+X State changes, shooting (weapon, freq), movement (seek player, avoid bullets) , animation
+- Transition probabilities depending on ai type
 
-- Add better handling of enemyies (enemy type - set of model type instance type and more)
 
 Game state:
 
@@ -36,11 +40,6 @@ Game state:
 GUI/Menus:
 -keypress true false problem
 
-
-
-Behavior:
-- State machine
-- State changes, shooting (weapon, freq), movement (seek player, avoid bullets) , animation
 
 
 -level loading

@@ -12,16 +12,24 @@ void Game::init_game() {
     }
 	background.init();
     // Initialize the Player
-    Instance player_instance = Instance({0,-0.8},0.1, get_model_from_type(PLAYER_MODEL1), DEFAULT_PLAYER_INSTANCE);
+    Instance player_instance = Instance({0,-0.8},0.1, get_model_from_type(PLAYER_MODEL1), DEFAULT_PLAYER_DRAW);
     player = Player(&bullet_manager,&background,player_instance);
 
     // Initialize Enemies
     int encount = 10;
     for(int i = 0; i < ENEMY_BUFFER_MAX; i++) {
         if(!enemies[i].exists) {
-
+			
+			EnemyInfo en_info;
+			en_info.ai_type=PASSIVE;
+			en_info.idle_animation = WIGGLE;
+			en_info.attack_animation = ROTO_Y_FAST;
+			en_info.movement_animation = NONE;
+			en_info.instance_model = TETRAHEDRA_STACKED;
+			en_info.bullet_type = SINGLE_SHOT;
+			en_info.draw_type = DEFAULT_ENEMY_DRAW;
             
-            enemies[i] = Enemy(&bullet_manager,&background, {((float)i / 5.0f) - 0.9f, 0.7f}, DEFAULT_ENEMY_INSTANCE);
+            enemies[i] = Enemy(&bullet_manager,&background, {((float)i / 5.0f) - 0.9f, 0.7f}, en_info);
             encount--;
         }
         if(encount == 0) break;

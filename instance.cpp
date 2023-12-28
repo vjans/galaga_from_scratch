@@ -4,29 +4,29 @@
 // Implement the draw function
 void Instance::draw() {
     // Assuming 'model' has a method to handle its own rendering
-	switch(instance_type){
-		case DEFAULT_BULLET_INSTANCE:
+	switch(draw_type){
+		case DEFAULT_BULLET_DRAW:
 		    model.move(v2_v3(pos));
 		    glCol({1,1,1});
 		    model.draw(DRAW_MODE_FILL);
 			break;
-		case DEFAULT_PLAYER_INSTANCE:
+		case DEFAULT_PLAYER_DRAW:
 		    model.move(v2_v3(pos));
 		    glCol({1,1,1});
 		    model.draw(DRAW_MODE_FILL);
-		    model.scale({1.1,1.1,1.1}, SCALE_MODE_FACTOR);
+		    model.scale({1.01,1.01,1.01}, SCALE_MODE_FACTOR);
 		    glCol({0,0,0});
 		    model.draw(DRAW_MODE_LINE);
-		    model.scale({1/1.1,1/1.1,1/1.1}, SCALE_MODE_FACTOR);
+		    model.scale({1/1.01,1/1.01,1/1.01}, SCALE_MODE_FACTOR);
 			break;
-		case DEFAULT_ENEMY_INSTANCE:
+		case DEFAULT_ENEMY_DRAW:
 		    model.move(v2_v3(pos));
-		    glCol({1,1,1});
+		    glCol({0,1,1});
 		    model.draw(DRAW_MODE_FILL);
-		    model.scale({1.1,1.1,1.1}, SCALE_MODE_FACTOR);
+		    model.scale({1.01,1.01,1.01}, SCALE_MODE_FACTOR);
 		    glCol({0,0,0});
 		    model.draw(DRAW_MODE_LINE);
-		    model.scale({1/1.1,1/1.1,1/1.1}, SCALE_MODE_FACTOR);
+		    model.scale({1/1.01,1/1.01,1/1.01}, SCALE_MODE_FACTOR);
 			break;
 		default:
 		    model.move(v2_v3(pos));
@@ -97,9 +97,9 @@ Animation get_animation_from_type(AnimationType animation_type){
 		case ROTO_X: base_rotation = {0.02,0,0}; break;
 		case ROTO_Y: base_rotation = {0,0.02,0}; break;
 		case ROTO_Z: base_rotation = {0,0,0.02}; break;
-		case ROTO_X_FAST: base_rotation = {0.1,0,0}; break;
-		case ROTO_Y_FAST: base_rotation = {0,0.1,0}; break;
-		case ROTO_Z_FAST: base_rotation = {0,0,0.1}; break;
+		case ROTO_X_FAST: base_rotation = {0.15,0,0}; break;
+		case ROTO_Y_FAST: base_rotation = {0,0.15,0}; break;
+		case ROTO_Z_FAST: base_rotation = {0,0,0.15}; break;
 	}
 	
 	return Animation(base_rotation,base_center,x_roto_trig_params,y_roto_trig_params,

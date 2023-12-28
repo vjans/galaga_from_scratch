@@ -14,10 +14,10 @@ Bullet init_bullet_from_type(v2 pos, BulletType bullet_type){
 	
 	switch(bullet_type){
 		case SINGLE_SHOT:
-			bullet_instance = Instance(pos, 0.02, get_model_from_type(TRIANGLE), DEFAULT_BULLET_INSTANCE);
+			bullet_instance = Instance(pos, 0.02, get_model_from_type(TRIANGLE), DEFAULT_BULLET_DRAW);
 			break;
 		case DOUBLE_SHOT:
-			bullet_instance = Instance(pos, 0.02, get_model_from_type(TRIANGLE), DEFAULT_BULLET_INSTANCE);
+			bullet_instance = Instance(pos, 0.02, get_model_from_type(TRIANGLE), DEFAULT_BULLET_DRAW);
 			break;
 	}
 	

@@ -21,10 +21,10 @@ enum GameState{
 };
 
 // Instance type for custom drawing and animations
-enum InstanceType {
-	DEFAULT_PLAYER_INSTANCE,
-	DEFAULT_ENEMY_INSTANCE,
-	DEFAULT_BULLET_INSTANCE
+enum DrawType {
+	DEFAULT_PLAYER_DRAW,
+	DEFAULT_ENEMY_DRAW,
+	DEFAULT_BULLET_DRAW
 };
 
 enum BulletType{
@@ -70,5 +70,17 @@ enum EnemyState{
 	DODGE
 };
 
+enum EnemyAnimationState{
+	IDLE,
+	MOVING,
+	ATTACKING
+};
+
+enum AIType{
+	PASSIVE,
+	WANDERING,
+	HUNTER,
+	PASSIVE_AGGRO
+};
 
 #endif

@@ -1,17 +1,34 @@
 #include "enemy.h"
 #include <cstdlib>
 
-            
+
+/*
+AI_TRANSITIONS
+
+class EnemyInfo{
+	BulletType bullet_type;
+	AnimationType idle_animation;
+	AnimationType movement_animation;
+	AnimationType attack_animation;
+	ModelType instance_model;
+};
+*/
+
+
+
 Enemy::Enemy() {}
-Enemy::Enemy(BulletManager* bullet_manager, BGPlane* background,  v2 pos, InstanceType enemy_type) 
+Enemy::Enemy(BulletManager* bullet_manager, BGPlane* background,  v2 pos, EnemyInfo en_info) 
 	: bullet_manager(bullet_manager), background(background), origin(pos) {
 		
 		target = origin;
-		en_instance = Instance({0,1},0.05,get_model_from_type(static_cast<ModelType>(rand()%8)), DEFAULT_ENEMY_INSTANCE);
-            
-        Animation animation = get_animation_from_type(static_cast<AnimationType>(rand()%8));
-        en_instance.add_animation(animation);
-
+		
+		en_instance = Instance({0,1},0.05,get_model_from_type(en_info.instance_model), en_info.draw_type);
+        bullet_type = en_info.bullet_type;
+        en_instance.add_animation(get_animation_from_type(en_info.idle_animation));
+        en_instance.add_animation(get_animation_from_type(en_info.movement_animation));
+        en_instance.add_animation(get_animation_from_type(en_info.attack_animation));
+        
+        set_animation_state(MOVING);
     exists = true;
 }
 
@@ -50,6 +67,10 @@ void Enemy::check_collision(){
 }
 
 
+void Enemy::set_animation_state(EnemyAnimationState animation_state){
+	en_instance.current_animation_index = static_cast<int>(animation_state);
+}
+
 void Enemy::update_state_machine(){
 	switch(current_state){
 	
@@ -57,7 +78,7 @@ void Enemy::update_state_machine(){
 	case IDLE_SOMEWHERE: break;
 	case DEFAULT_SHOOTING: break;
 	case MOVE_ORIGIN: move_to_origin(); break;
-	case MOVE_PLAYER: move_to_player(); break;
+	case MOVE_PLAYER: move_to_player();  break;
 	case WANDER: wander(); break;
 	}
 }
@@ -73,6 +94,7 @@ void Enemy::move_to_origin() {
 	// Check if the enemy is close enough to the origin
     if (magnitude <= 0.02) {
         current_state = IDLE_ORIGIN; // Switch to IDLE_ORIGIN state
+        set_animation_state(IDLE);
         return; // Stop further movement processing
     }		
     if (magnitude > 0) {
@@ -93,10 +115,14 @@ void Enemy::move_to_player(){
 
     // Normalize the direction vector
     float magnitude = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
-	// Check if the enemy is close enough to the origin
+	// Check if the enemy approaches
+	if(en_instance.pos.y < 0.1){
+		set_animation_state(ATTACKING);
+	}
     if (en_instance.pos.y < 0) {
         
 		if(rand()%1000 == 0){
+			set_animation_state(MOVING);
 			bullet_manager->spawn_bullet(en_instance.pos, {0,-0.01}, HOSTILE, bullet_type);
 			current_state = MOVE_ORIGIN; // Switch to IDLE_ORIGIN state
 	        return; // Stop further movement processing		
@@ -123,12 +149,12 @@ void Enemy::idle(){
 	if(rand()%1000==0){bullet_manager->spawn_bullet(en_instance.pos, {0,-0.01}, HOSTILE, bullet_type);
 	}
 	if(rand()%10000 == 0){
-		
+		set_animation_state(MOVING);
 		current_state = WANDER;
 	
 	}
 	if(rand()%10000 == 0){
-		
+		set_animation_state(MOVING);
 		current_state = MOVE_PLAYER;
 	
 	}
@@ -136,7 +162,13 @@ void Enemy::idle(){
 void Enemy::wander(){
 	float distance = sqrt(pow(target.x - en_instance.pos.x, 2) + pow(target.y - en_instance.pos.y, 2));
     v2 direction = {target.x - en_instance.pos.x, target.y - en_instance.pos.y};
+    
+    if(distance <= 0.1){
+    	set_animation_state(ATTACKING);
+	}
+    
 	if(distance <= 0.02){
+		set_animation_state(MOVING);
 		// set new random target (CHANGE THIS MESS)
         target = {-0.9f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (0.9f + 0.9f))),
         -0.4f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (0.9f - -0.4f)))};

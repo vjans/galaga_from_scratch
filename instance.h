@@ -53,13 +53,13 @@ class Instance{
 	float size;
 	bool draw_bounding_box = false;
 	object3d model;
-	InstanceType instance_type;	
+	DrawType draw_type;	
 	std::vector<Animation> animations;
 	int current_animation_index = NO_ANIMATION;
 	
 	Instance(){}
-	Instance(v2 _pos, float _size, object3d _model, InstanceType _instance_type)
-		: pos(_pos), size(_size), model(_model), instance_type(_instance_type){
+	Instance(v2 _pos, float _size, object3d _model, DrawType _draw_type)
+		: pos(_pos), size(_size), model(_model), draw_type(_draw_type){
 			
 		model.normalize();
 		v3 scalef; scalef.x = size; scalef.y = size; scalef.z = size;
