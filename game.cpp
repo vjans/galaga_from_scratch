@@ -99,8 +99,9 @@ void Game::handle_player() {
 void Game::handle_enemies() {
     for(int i = 0; i < ENEMY_BUFFER_MAX; i++) {
         if(enemies[i].exists) {
-            enemies[i].shoot();
             enemies[i].check_collision();
+            enemies[i].update_state_machine();
+            enemies[i].update_player_pos(player.pl_instance.pos);
         }
     }
 }

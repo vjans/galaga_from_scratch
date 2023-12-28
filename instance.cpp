@@ -106,6 +106,7 @@ Animation get_animation_from_type(AnimationType animation_type){
 	z_roto_trig_params,x_center_trig_params,y_center_trig_params,z_center_trig_params);
 }
 
+
 bool Instance::check_collision(const Instance& other) const {
         float left1 = pos.x - size;
         float right1 = pos.x + size;

@@ -60,5 +60,15 @@ enum AnimationType{
 	ROTO_Z_FAST,
 };
 
+enum EnemyState{
+	IDLE_ORIGIN,
+	IDLE_SOMEWHERE,
+	DEFAULT_SHOOTING,
+	MOVE_ORIGIN,
+	MOVE_PLAYER,
+	WANDER,
+	DODGE
+};
+
 
 #endif

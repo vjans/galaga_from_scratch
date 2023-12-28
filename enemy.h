@@ -12,6 +12,11 @@ public:
     BulletManager* bullet_manager;
 	Instance en_instance;
 	BGPlane* background;
+	BulletType bullet_type = SINGLE_SHOT;
+	EnemyState current_state = MOVE_ORIGIN; // when enemies spawn they should move to the origin point
+	v2 origin;
+	v2 target;
+	v2 player_pos;
 	bool exists = false;
 	float speed = 0.01;
 	float health = 1;
@@ -28,5 +33,12 @@ public:
 	void animate(float time);
 	void check_collision();
 	
+	void update_state_machine();
+	void move_to_origin();
+	void move_to_player();
+	void idle();
+	void wander();
+	
+	void update_player_pos(v2 pos);
 };
 #endif
