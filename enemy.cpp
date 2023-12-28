@@ -220,48 +220,38 @@ void Enemy::update_player_pos(v2 pos){
 			en_info.draw_type = DEFAULT_ENEMY_DRAW;
             
 */
+
+
+
+
+
 EnemyInfo get_enemy_info_from_type(EnemyType enemy_type){
 	EnemyInfo en_info;
 	switch(enemy_type){
-		case DEFAULT: 
-			en_info.ai_type=PASSIVE;
-			en_info.idle_animation = WIGGLE; 
-			en_info.attack_animation = ROTO_Y_FAST; 
-			en_info.movement_animation = NONE;
-			en_info.instance_model = TETRAHEDRA_STACKED; 
-			en_info.bullet_type = SINGLE_SHOT;
-			en_info.draw_type = DEFAULT_ENEMY_DRAW;
-			en_info.size = 0.025;
-			en_info.speed = 0.01;
-			en_info.health = 5;
-		break;
-		
-		case BIG_GUY: 
-			en_info.ai_type=PASSIVE;
-			en_info.idle_animation = WIGGLE; 
-			en_info.attack_animation = ROTO_Y_FAST; 
-			en_info.movement_animation = NONE;
-			en_info.instance_model = TETRAHEDRA_STACKED; 
-			en_info.bullet_type = SINGLE_SHOT;
-			en_info.draw_type = DEFAULT_ENEMY_DRAW;
-			en_info.size = 0.1;
-			en_info.speed = 0.005;
-			en_info.health = 20;
-		break;
-		
-		case SPEEDY_BOI: 
-			en_info.ai_type=PASSIVE;
-			en_info.idle_animation = WIGGLE; 
-			en_info.attack_animation = ROTO_Y_FAST; 
-			en_info.movement_animation = NONE;
-			en_info.instance_model = TETRAHEDRA_STACKED; 
-			en_info.bullet_type = SINGLE_SHOT;
-			en_info.draw_type = DEFAULT_ENEMY_DRAW;
-			en_info.size = 0.0125;
-			en_info.speed = 0.1;
-			en_info.health = 1;
-		break;
-		
+		case TETRA: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,TETRAHEDRON,DEFAULT_ENEMY_DRAW,PASSIVE,7,0.01,0.05);break;
+		case BIG_TETRA: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,TETRAHEDRON,DEFAULT_ENEMY_DRAW,PASSIVE,35,0.005,0.12);break;
+		case ELITE_TETRA: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,TETRAHEDRON,ELITE_ENEMY_DRAW,PASSIVE,20,0.015,0.05);break;
+		case ICO: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,ICOSAHEDRON,DEFAULT_ENEMY_DRAW,PASSIVE,7,0.01,0.05);break;
+		case BIG_ICO: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,ICOSAHEDRON,DEFAULT_ENEMY_DRAW,PASSIVE,35,0.015,0.12);break;
+		case ELITE_ICO: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,ICOSAHEDRON,ELITE_ENEMY_DRAW,PASSIVE,20,0.015,0.05);break;
+		case OCT: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,OCTAHEDRON,DEFAULT_ENEMY_DRAW,PASSIVE,7,0.01,0.05);break;
+		case BIG_OCT: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,OCTAHEDRON,DEFAULT_ENEMY_DRAW,PASSIVE,35,0.015,0.12);break;
+		case ELITE_OCT: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,OCTAHEDRON,ELITE_ENEMY_DRAW,PASSIVE,20,0.015,0.05);break;
+		case DOUBLE_OCT: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,ENEMY_DOUBLE_OCT,DEFAULT_ENEMY_DRAW,PASSIVE,7,0.01,0.05);break;
+		case BIG_DOUBLE_OCT: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,ENEMY_DOUBLE_OCT,DEFAULT_ENEMY_DRAW,PASSIVE,35,0.015,0.12);break;
+		case ELITE_DOUBLE_OCT: 
+			en_info = EnemyInfo(SINGLE_SHOT,ROTO_ALL,NONE,ROTO_Y_FAST,ENEMY_DOUBLE_OCT,ELITE_ENEMY_DRAW,PASSIVE,20,0.015,0.05);break;
 	}
 	return en_info;
 }

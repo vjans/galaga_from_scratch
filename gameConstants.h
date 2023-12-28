@@ -24,6 +24,7 @@ enum GameState{
 enum DrawType {
 	DEFAULT_PLAYER_DRAW,
 	DEFAULT_ENEMY_DRAW,
+	ELITE_ENEMY_DRAW,
 	DEFAULT_BULLET_DRAW
 };
 
@@ -55,6 +56,7 @@ enum AnimationType{
 	ROTO_X,
 	ROTO_Y,
 	ROTO_Z,
+	ROTO_ALL,
 	ROTO_X_FAST,
 	ROTO_Y_FAST,
 	ROTO_Z_FAST,
@@ -84,8 +86,17 @@ enum AIType{
 };
 
 enum EnemyType{
-	DEFAULT,
-	BIG_GUY,
-	SPEEDY_BOI
+	TETRA,
+	BIG_TETRA,
+	ELITE_TETRA,
+	ICO,
+	BIG_ICO,
+	ELITE_ICO,
+	OCT,
+	BIG_OCT,
+	ELITE_OCT,
+	DOUBLE_OCT,
+	BIG_DOUBLE_OCT,
+	ELITE_DOUBLE_OCT
 };
 #endif

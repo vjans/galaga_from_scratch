@@ -21,10 +21,19 @@ void Instance::draw() {
 			break;
 		case DEFAULT_ENEMY_DRAW:
 		    model.move(v2_v3(pos));
-		    glCol({0,1,1});
+		    glCol({1,1,1});
 		    model.draw(DRAW_MODE_FILL);
 		    model.scale({1.01,1.01,1.01}, SCALE_MODE_FACTOR);
 		    glCol({0,0,0});
+		    model.draw(DRAW_MODE_LINE);
+		    model.scale({1/1.01,1/1.01,1/1.01}, SCALE_MODE_FACTOR);
+			break;
+		case ELITE_ENEMY_DRAW:
+		    model.move(v2_v3(pos));
+		    glCol({0,0,0});
+		    model.draw(DRAW_MODE_FILL);
+		    model.scale({1.01,1.01,1.01}, SCALE_MODE_FACTOR);
+		    glCol({1,1,1});
 		    model.draw(DRAW_MODE_LINE);
 		    model.scale({1/1.01,1/1.01,1/1.01}, SCALE_MODE_FACTOR);
 			break;
@@ -92,11 +101,12 @@ Animation get_animation_from_type(AnimationType animation_type){
 	
 	switch(animation_type){
 		case NONE: break;
-		case WIGGLE: base_rotation = {0,0.02,0}; z_roto_trig_params = {0.1,3.141592/2,1/33.0f};break;
-		case WIGGLE_FAST: base_rotation = {0,0.02,0}; z_roto_trig_params = {0.2,3.141592/2,1/33.0f}; break;
-		case ROTO_X: base_rotation = {0.02,0,0}; break;
-		case ROTO_Y: base_rotation = {0,0.02,0}; break;
-		case ROTO_Z: base_rotation = {0,0,0.02}; break;
+		case WIGGLE: base_rotation = {0,0.015,0}; z_roto_trig_params = {0.025,3.141592/2,1/300.0f};break;
+		case WIGGLE_FAST: base_rotation = {0,0.01,0}; z_roto_trig_params = {0.2,3.141592/2,1/33.0f}; break;
+		case ROTO_X: base_rotation = {0.01,0,0}; break;
+		case ROTO_Y: base_rotation = {0,0.01,0}; break;
+		case ROTO_Z: base_rotation = {0,0,0.01}; break;
+		case ROTO_ALL: base_rotation = {0.01,0.01,0.01}; break;
 		case ROTO_X_FAST: base_rotation = {0.15,0,0}; break;
 		case ROTO_Y_FAST: base_rotation = {0,0.15,0}; break;
 		case ROTO_Z_FAST: base_rotation = {0,0,0.15}; break;

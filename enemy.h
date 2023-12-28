@@ -19,6 +19,10 @@ public:
 	float health;
 	float speed;
 	float size;
+	
+	EnemyInfo(){}
+	EnemyInfo(BulletType bt, AnimationType idl,AnimationType mvm,AnimationType atk,ModelType ins,DrawType dt,AIType ai,float h,float sp,float sz)
+	: bullet_type(bt), idle_animation(idl), movement_animation(mvm), attack_animation(atk), instance_model(ins), draw_type(dt), ai_type(ai), health(h), speed(sp), size(sz){}
 };
 
 class Enemy{
